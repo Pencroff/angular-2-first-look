@@ -14,29 +14,40 @@ import 'es6-shim';
 //    bootstrap
 //} from 'angular2/angular2';
 
-import * as lib from 'angular2/angular2';
+import {default as ng} from 'angular2/angular2';
+console.dir(ng);
 
-let Component = lib.default.Component;
-let View = lib.default.View;
-let bootstrap = lib.default.bootstrap;
+const Component = ng.Component;
+const View = ng.View;
+const Inject = ng.Inject;
+const bind = ng.bind;
+const bootstrap = ng.bootstrap;
 
-console.log(View);
+import TodoItem from './components/todo-item'
+import TodoList from './components/todo-list'
+import TodoModel from './model'
+import TodoStore from './store'
 
 //create a simple angular component
 @Component({
-    selector: 'test-app'
+    selector: 'main-app'
 })
 @View({
-    template: '<h4>Hello {{name}}</h4>'
+    templateUrl: 'src/main.template.html',
+    directives: [TodoList]
 })
-class TestApp {
+class MainApp {
     constructor(){
-        this.name = 'Angular2';
-        setTimeout(() => {
-            this.name = 'Angular2!!!'
-        },1500);
     }
 }
 
+
 //start our app
-bootstrap(TestApp);
+bootstrap(MainApp, [
+    TodoModel,
+    TodoStore,
+    TodoList,
+    TodoModel
+]).then(function (ref) {
+    console.log('Ref', ref);
+});
