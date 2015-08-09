@@ -37,10 +37,10 @@ import TodoStore from './store'
     directives: [TodoList]
 })
 class MainApp {
-    constructor(){
+    constructor() {
+
     }
 }
-
 
 //start our app
 bootstrap(MainApp, [
